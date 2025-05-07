@@ -2,13 +2,13 @@ import React from 'react';
 import GameCard from '@/app/(home)/games/game-card';
 
 const games = [
-  { title: "Subtract Master", url: "/game", imageUrl: "./subtruct.png", status: "Active" },
-  { title: "Infinite addition", url: "/comingsoon", imageUrl: "./hammer.png", status: "Coming soon"},
-  { title: "Fraction Smash", url: "/comingsoon", imageUrl: "./inf.png", status: "Coming soon" },
-  { title: "Expanding Splodges", url: "/comingsoon", imageUrl: "./1.png", status: "Coming soon" },
-  { title: "Blast into Multipication", url: "/comingsoon", imageUrl: "./2.png", status: "Coming soon" },
-  { title: "Shrink Big Grow Small", url: "/comingsoon", imageUrl: "./3.png", status: "Coming soon" },
-  { title: "Expedation For Atoms", url: "/comingsoon", imageUrl: "./atom.png", status: "Coming soon" },
+  { title: "Хасалтын Хаан", url: "/game", imageUrl: "./subtruct.png", status: "Идэвхитэй" },
+  { title: "Хязгааргүй Нэмэх", url: "/comingsoon", imageUrl: "./hammer.png", status: "Тун удахгүй..." },
+  { title: "Бутархай Бөмбөгдөгч", url: "/comingsoon", imageUrl: "./inf.png", status: "Тун удахгүй..." },
+  { title: "Томроорой!", url: "/comingsoon", imageUrl: "./1.png", status: "Тун удахгүй..." },
+  { title: "Үржихийн Дэлбэрэлт", url: "/comingsoon", imageUrl: "./2.png", status: "Тун удахгүй..." },
+  { title: "Агшаад Томроорой", url: "/comingsoon", imageUrl: "./3.png", status: "Тун удахгүй..." },
+  { title: "Атомын Аялал", url: "/comingsoon", imageUrl: "./atom.png", status: "Тун удахгүй..." },
 ];
 
 const Home: React.FC = () => {
@@ -17,9 +17,9 @@ const Home: React.FC = () => {
       {/* Sidebar */}
       <div className="md:w-1/3 p-6 rounded-2xl bg-white shadow-xl flex flex-col justify-start pt-24">
         <h2 className="text-4xl font-extrabold text-green-600 mb-3">AI Study</h2>
-        <p className="text-gray-700 text-lg mb-1">📘 7 Units</p>
+        <p className="text-gray-700 text-lg mb-1">📘 7 Бүлэг</p>
         <p className="text-gray-600 text-md">
-          Ready to exercise your mind, <span className="font-semibold text-green-500">Teru</span>?
+        Оюунаа дасгалжуулахад бэлэн үү? <span className="font-semibold text-green-500">Teru</span>?
         </p>
       </div>
 
