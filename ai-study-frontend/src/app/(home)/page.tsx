@@ -13,12 +13,14 @@ const games = [
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen w-full p-6 bg-gray-100 flex flex-col md:flex-row gap-6">
+    <div className="min-h-screen w-full p-6 bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col md:flex-row gap-6">
       {/* Sidebar */}
-      <div className="md:w-1/3 p-6 rounded-2xl  flex flex-col justify-start pt-36">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">AI Study</h2>
-        <p className="text-gray-600 mb-1">7 Units</p>
-        <p className="text-gray-500">Ready to exercise your mind, <span className="font-semibold">Teru</span>?</p>
+      <div className="md:w-1/3 p-6 rounded-2xl bg-white shadow-xl flex flex-col justify-start pt-24">
+        <h2 className="text-4xl font-extrabold text-green-600 mb-3">AI Study</h2>
+        <p className="text-gray-700 text-lg mb-1">📘 7 Units</p>
+        <p className="text-gray-600 text-md">
+          Ready to exercise your mind, <span className="font-semibold text-green-500">Teru</span>?
+        </p>
       </div>
 
       {/* Game Grid */}
