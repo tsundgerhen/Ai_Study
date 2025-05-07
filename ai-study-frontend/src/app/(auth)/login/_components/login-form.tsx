@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // Step schemas
 const emailSchema = z.object({
@@ -31,9 +32,11 @@ type EmailFormData = z.infer<typeof emailSchema>;
 type OtpFormData = z.infer<typeof otpSchema>;
 
 export default function OTPLoginForm() {
+    const router = useRouter();
     const [step, setStep] = useState<'email' | 'otp'>('email');
     const [userEmail, setUserEmail] = useState<string>('');
     const api = process.env.NEXT_PUBLIC_API_URL;
+
 
     console.log("api", api);
 
@@ -59,9 +62,8 @@ export default function OTPLoginForm() {
             });
 
             const result = await res.json();
-            console.log(result);
 
-            if (res.ok && result.success) {
+            if (res.ok) {
                 setUserEmail(data.email);
                 setStep('otp');
             } else {
@@ -86,9 +88,11 @@ export default function OTPLoginForm() {
 
             const result = await res.json();
 
-            if (res.ok && result.success) {
+            if (res.ok) {
                 alert(`Амжилттай нэвтэрлээ! (${result.access_token}`);
                 // Redirect to the main page or perform any other action
+                localStorage.setItem('access_token', result.access_token);
+                router.push('/');
             } else {
                 alert(result.message || 'Алдаа гарлаа. Дахин оролдоно уу.');
             }
@@ -120,8 +124,12 @@ export default function OTPLoginForm() {
                             )}
                         />
 
-                        <Button type="submit" className="w-full text-lg px-4 py-2 cursor-pointer">
-                            Үргэлжлүүлэх
+                        <Button
+                            type="submit"
+                            className="w-full text-lg px-4 py-2 cursor-pointer"
+                            disabled={emailForm.formState.isSubmitting}
+                        >
+                            {emailForm.formState.isSubmitting ? 'Илгээж байна...' : 'Үргэлжлүүлэх'}
                         </Button>
                     </form>
                 </Form>
@@ -138,7 +146,7 @@ export default function OTPLoginForm() {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <InputOTP maxLength={4} {...field} className='3' pattern='[0-9]'>
+                                            <InputOTP maxLength={4} {...field} className='3' inputMode='numeric'>
                                                 <InputOTPGroup className=''>
                                                     {Array.from({ length: 4 }).map((_, i) => (
                                                         <InputOTPSlot key={i} index={i} className='h-20 w-16 text-2xl border-2 text-center' />
@@ -152,8 +160,12 @@ export default function OTPLoginForm() {
                             />
                         </div>
 
-                        <Button type="submit" className="w-full text-lg px-4 py-2 cursor-pointer">
-                            Нэвтрэх
+                        <Button
+                            type="submit"
+                            className="w-full text-lg px-4 py-2 cursor-pointer"
+                            disabled={otpForm.formState.isSubmitting}
+                        >
+                            {otpForm.formState.isSubmitting ? 'Нэвтэрч байна...' : 'Нэвтрэх'}
                         </Button>
                         <Button
                             type="button"

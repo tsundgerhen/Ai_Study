@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // Step 1 Schema
 const UserInfoSchema = z.object({
@@ -41,6 +42,7 @@ type UserInfoData = z.infer<typeof UserInfoSchema>;
 type OtpData = z.infer<typeof OtpSchema>;
 
 export default function SignupForm() {
+    const router = useRouter();
     const [step, setStep] = useState<'userInfo' | 'otp'>('userInfo');
     const [userEmail, setUserEmail] = useState('');
 
@@ -72,7 +74,6 @@ export default function SignupForm() {
 
     // Handle Step 1 submit
     const onUserInfoSubmit = async (data: UserInfoData) => {
-        console.log('📧 Sending user info:', data);
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup/request`, {
@@ -94,18 +95,15 @@ export default function SignupForm() {
             }
 
             const responseData = await res.json();
-            console.log('Response:', responseData);
             setUserEmail(data.email);  // Store email for OTP step
             setStep('otp');  // Move to OTP step
         } catch (error) {
-            console.error('Error during user info submission:', error);
             alert('Алдаа гарлаа. Дахин оролдоно уу.');
         }
     };
 
     // Handle Step 2 submit
     const onOtpSubmit = async (data: OtpData) => {
-        console.log('🔑 Sending OTP:', data);
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup/verify`, {
@@ -124,8 +122,8 @@ export default function SignupForm() {
             }
 
             const responseData = await res.json();
-            console.log('Response:', responseData);
-            alert('Баталгаажуулалт амжилттай!');  // Success message
+            alert('Баталгаажуулалт амжилттай!');
+            router.push('/login'); // Success message
         } catch (error) {
             console.error('Error during OTP submission:', error);
             alert('Алдаа гарлаа. Дахин оролдоно уу.');
@@ -208,8 +206,13 @@ export default function SignupForm() {
                             )}
                         />
 
-                        <Button type="submit" className="w-full mt-2 text-lg px-4 py-2 cursor-pointer">
-                            Үргэлжлүүлэх
+                        <Button
+                            type="submit"
+                            className={`w-full mt-2 text-lg px-4 py-2 ${userInfoForm.formState.isSubmitting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                                }`}
+                            disabled={userInfoForm.formState.isSubmitting}
+                        >
+                            {userInfoForm.formState.isSubmitting ? 'Илгээж байна...' : 'Үргэлжлүүлэх'}
                         </Button>
 
                         <p className="text-sm text-center">
